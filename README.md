@@ -1,53 +1,83 @@
 # FitZone Gym Management System
 
-FitZone is a PostgreSQL-based gym management database designed to manage members, trainers, categories, classes, sessions, and bookings.
+FitZone is a PostgreSQL-based gym management database designed to support the workflow of a gym, from member registration and class scheduling to session bookings, ratings, and loyalty management.
 
-The project focuses on relational database design, data management, and database-side programming using SQL and PL/pgSQL.
+The project started with relational database design and SQL fundamentals, then expanded into database-side programming with PL/pgSQL, stored procedures, triggers, exception handling, validation, and automated business rules.
 
-## Features
+## Database Design
 
-- Relational database design with connected entities and foreign-key relationships
-- Member, trainer, class, session, category, and booking management
-- PL/pgSQL functions and stored procedures
-- Control flow, loops, and RECORD variables
-- Exception handling for database operations
-- Booking validation and duplicate booking prevention
-- Rating validation and business rules
-- Automatic member loyalty-level updates
-- Session seat availability calculation
-- Audit logging for booking INSERT, UPDATE, and DELETE operations
+The core database consists of six related tables:
 
-## Database Structure
-
-The system is built around six core tables:
-
-- **Members** — stores member information, account status, and loyalty data
-- **Trainers** — stores trainer information and mentor relationships
-- **Categories** — organizes gym class categories
-- **Classes** — stores available gym classes
-- **Sessions** — represents scheduled class sessions and assigned trainers
-- **Bookings** — connects members with sessions and stores ratings and feedback
+- **members** — member information, contact details, address, status, and loyalty data
+- **trainers** — trainer information with a self-referencing mentor relationship
+- **categories** — gym class categories
+- **classes** — classes assigned to categories
+- **sessions** — scheduled class sessions led by trainers
+- **bookings** — connects members to sessions and stores ratings and feedback
 
 An additional **audit_log** table is used to track changes made to bookings.
 
-## Database Logic
+## Key Features
 
-The project includes database-side logic implemented with PL/pgSQL, including:
+### Relational Database Design
+- Normalized relational schema
+- Primary and foreign key relationships
+- Self-referencing trainer/mentor relationship
+- Many-to-many relationship between members and sessions through bookings
+- Data integrity using `NOT NULL`, `UNIQUE`, `CHECK`, and `DEFAULT` constraints
+
+### SQL & Data Management
+- DDL and DML operations
+- Data insertion and updates
+- JOIN operations across related tables
+- Aggregation and grouping
+- Subqueries
+- Database indexing
+- User permissions using DCL
+- Read-only and manager database roles
+
+### PL/pgSQL
+- Anonymous `DO` blocks
+- Variables and `%TYPE`
+- `SELECT INTO`
+- Conditional logic with `IF / ELSIF / ELSE`
+- `FOR` and `WHILE` loops
+- RECORD variables
+- Functions
+- Stored procedures
+- Exception handling
+- Named PostgreSQL exceptions
+
+### Functions & Procedures
+The database includes reusable logic for:
 
 - Retrieving member information
+- Looking up members by email
 - Calculating trainer average ratings
 - Calculating member loyalty points
 - Adding new bookings
 - Updating member status
-- Looking up members by email
 - Validating ratings
 - Applying loyalty bonuses
 - Calculating available seats for sessions
-- Handling database exceptions
-- Preventing duplicate bookings
-- Preventing ratings from being modified after submission
-- Automatically updating loyalty levels
-- Logging booking operations
+
+### Triggers & Business Rules
+Database-level automation is used to:
+
+- Prevent duplicate session bookings
+- Prevent a submitted rating from being changed
+- Automatically update member loyalty levels
+- Keep loyalty levels within their allowed limit
+- Track booking changes automatically
+
+### Audit Logging
+An `audit_log` table records changes to bookings, including:
+
+- INSERT
+- UPDATE
+- DELETE
+
+This provides a history of booking operations performed in the database.
 
 ## Technologies
 
@@ -55,6 +85,11 @@ The project includes database-side logic implemented with PL/pgSQL, including:
 - SQL
 - PL/pgSQL
 - pgAdmin
+- ERDPlus
+
+## Concepts Applied
+
+`Database Design` · `Normalization` · `ERD` · `DDL` · `DML` · `DCL` · `Joins` · `Aggregation` · `Subqueries` · `Indexes` · `Functions` · `Stored Procedures` · `Triggers` · `Exception Handling` · `Audit Logging` · `Business Rules`
 
 ## Project Structure
 
@@ -62,23 +97,11 @@ The project includes database-side logic implemented with PL/pgSQL, including:
 FitZone-Gym-Management-System/
 │
 ├── README.md
-├── database/
-│   ├── 01_schema.sql
-│   ├── 02_seed_data.sql
-│   └── 03_queries.sql
-│
-└── docs/
-    └── database-diagram.png
+├── fitzone_database.sql
+├── fitzone_plpgsql.sql
+└── fitzone_schema.png
 ```
 
-## Database Relationships
+## Project Highlights
 
-The database uses primary and foreign keys to maintain relationships between members, trainers, categories, classes, sessions, and bookings.
-
-Bookings connect members to scheduled sessions, while sessions connect classes with trainers. Classes are organized by category, and trainers can also have mentor relationships.
-
-## Highlights
-
-The project goes beyond basic CRUD operations by implementing business rules directly at the database level using PL/pgSQL functions, procedures, and triggers.
-
-Key examples include preventing duplicate bookings, protecting submitted ratings from being changed, maintaining member loyalty levels, calculating session availability, and automatically recording booking changes in an audit log.
+FitZone demonstrates both relational database design and database-side programming. Beyond storing and querying data, the database enforces business rules, validates operations, handles errors, automates loyalty management, and maintains an audit trail for booking activity.
