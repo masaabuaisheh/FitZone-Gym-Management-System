@@ -108,6 +108,7 @@ FitZone-Gym-Management-System/
 ├── fitzone_plpgsql.sql
 └── assets/
     └── fitzone_schema.png
+```
 
 ## Project Highlights
 
