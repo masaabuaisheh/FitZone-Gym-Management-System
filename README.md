@@ -17,6 +17,13 @@ The core database consists of six related tables:
 
 An additional **audit_log** table is used to track changes made to bookings.
 
+## Database Schema
+
+The following diagram shows the structure and relationships between the six core tables:
+
+<img width="832" height="600" alt="fitzone_schema" src="https://github.com/user-attachments/assets/9071225e-6df2-427c-a648-e6068d91bb5c" />
+
+
 ## Key Features
 
 ### Relational Database Design
@@ -99,8 +106,8 @@ FitZone-Gym-Management-System/
 ├── README.md
 ├── fitzone_database.sql
 ├── fitzone_plpgsql.sql
-└── fitzone_schema.png
-```
+└── assets/
+    └── fitzone_schema.png
 
 ## Project Highlights
 
